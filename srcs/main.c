@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/22 17:33:34 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/22 17:40:11 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,24 @@ int		expose_hook(t_env *e)
 
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
+	t_env w;
+
+	w = *e;
 	printf("mouse: %d (%d:%d)\n", button, x, y);
 	return (0);
 }
 
 int		key_hook(int keycode, t_env *e)
 {
+	t_env w;
+	w = *e;
 	printf("key: %d\n", keycode);
 	if (keycode == 53)
 		return (53);
 	return (0);
 }
 
-int		main(int ac, char **av)
+int		main(void)
 {
 	t_env	e;
 
