@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/22 17:40:11 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/23 17:51:59 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ int		main(void)
 {
 	t_env	e;
 
-	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 550, 400, "42");
+	e.mlx = mlx_init();		//fails if returns NULL PTR
+	e.win = mlx_new_window(e.mlx, 550, 400, "42");	//creates new window
 	draw(e.mlx, e.win);
 	mlx_key_hook(e.win, key_hook, &e);
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
@@ -120,8 +120,23 @@ int		main(void)
 //	mlx_expo_hook(e.win, expose_hook, &e);
 	mlx_mouse_hook(e.win, mouse_hook, &e);
 //	mlx_mouse_hook(e.win, draw_mouse, &e);
-	mlx_loop(e.mlx);
+	mlx_loop(e.mlx);	//function never returns / infinite loop
+//	mlx_clear_window(e.mlx, e.win);	//clears window	
 	sleep(5);
 	usleep(5000);
 	return (0);
 }
+
+//	USUAL CALL ORDER
+//	expo_hook(voi *param);
+//	key_hook_(int keycode, void *param);
+//	mouse_hook(int button, int x, int y, void *param);
+//	loop_hook(void *param);
+//
+//	int	mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color, char *str);
+//
+//	mlx_new_image
+//		creates new image
+//		user can draw into it
+//	mlx_put_image_to_window
+//		puts created image to window
