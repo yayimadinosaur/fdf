@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/23 17:51:59 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/23 21:17:45 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "mlx.h"
 #include <unistd.h>
 
-//	42 logo star wars color w/ dots at variable + 5
 typedef struct	s_env
 {
 	void *mlx;
@@ -47,7 +46,9 @@ void	draw(void *mlx, void *win)
 {
 	int		x;
 	int		y;
+	int		j;	//random variable to compare to
 
+	j = 50;
 	y = 50;
 	while (y < 301)
 	{
@@ -57,8 +58,27 @@ void	draw(void *mlx, void *win)
 //			if (x == 50 || y == 50 || x == 299 || y == 299)
 //				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);	//border hardcoded
 			if (x % 25 == 0 || y % 25 == 0)			//border w %
-				mlx_pixel_put(mlx, win, x, y, 0xCCCC00D); //white
-			if (x >= 100 && x <= 150 && y >= 100 && y <= 200) 
+			//	mlx_pixel_put(mlx, win, x, y, 0xCCCC00D); //yellow
+				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
+			if (((x == 100 || x == 125) && y >= 100 && y <= 175)
+						|| (x >= 100 && x <= 125 && (y == 100
+						|| y == 125 || y == 150 || y == 175)))
+				mlx_pixel_put(mlx, win, x, y, 0xff00ff);
+			if (x >= 100 && x <= 225 && x == y)
+			{
+				mlx_pixel_put(mlx, win, x, y, 0xff00ff);	
+				j++;
+				//drew diagonal lines down righ
+			}
+			//^ magenta left side of 4
+			if (x > 225 && x <= 300 && y >= 225 && y <= 300 && ( y < x))
+				mlx_pixel_put(mlx, win, x, y, 0x2e8b57);
+			if (x > 300 && x <= 350 && y > 100 && y < 150)
+				mlx_pixel_put(mlx, win, x, y, 0xffa500);
+
+	/*
+	 *	hardcoded 42 in white
+	 * 		if (x >= 100 && x <= 150 && y >= 100 && y <= 200) 
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
 			if (x >= 200 && x <= 250 && y >= 100 && y <= 275)
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
@@ -76,7 +96,7 @@ void	draw(void *mlx, void *win)
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
 			if (x >= 300 && x <= 350 && y >= 200 && y <= 250)
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
-			x = x + 1;
+	*/		x = x + 1;
 		}
 		y = y + 1;
 	}
@@ -117,7 +137,7 @@ int		main(void)
 	mlx_key_hook(e.win, key_hook, &e);
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
 //		return (0);
-//	mlx_expo_hook(e.win, expose_hook, &e);
+//	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_mouse_hook(e.win, mouse_hook, &e);
 //	mlx_mouse_hook(e.win, draw_mouse, &e);
 	mlx_loop(e.mlx);	//function never returns / infinite loop
@@ -126,17 +146,3 @@ int		main(void)
 	usleep(5000);
 	return (0);
 }
-
-//	USUAL CALL ORDER
-//	expo_hook(voi *param);
-//	key_hook_(int keycode, void *param);
-//	mouse_hook(int button, int x, int y, void *param);
-//	loop_hook(void *param);
-//
-//	int	mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color, char *str);
-//
-//	mlx_new_image
-//		creates new image
-//		user can draw into it
-//	mlx_put_image_to_window
-//		puts created image to window
