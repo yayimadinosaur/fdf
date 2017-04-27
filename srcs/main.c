@@ -6,13 +6,14 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/23 21:17:45 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/26 20:33:37 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "mlx.h"
 #include <unistd.h>
+#include "fdf.h"
 
 typedef struct	s_env
 {
@@ -127,22 +128,28 @@ int		key_hook(int keycode, t_env *e)
 	return (0);
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
-	t_env	e;
+	t_env		e;
+	t_fdfstore	grid;
 
-	e.mlx = mlx_init();		//fails if returns NULL PTR
-	e.win = mlx_new_window(e.mlx, 550, 400, "42");	//creates new window
-	draw(e.mlx, e.win);
-	mlx_key_hook(e.win, key_hook, &e);
+	if (ac == 2)
+	{
+		grid = make_grid(&av[1]);
+		print_grid(grid);
+/*		e.mlx = mlx_init();		//fails if returns NULL PTR
+		e.win = mlx_new_window(e.mlx, 550, 400, "42");	//creates new window
+		draw(e.mlx, e.win);
+		mlx_key_hook(e.win, key_hook, &e);
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
 //		return (0);
 //	mlx_expose_hook(e.win, expose_hook, &e);
-	mlx_mouse_hook(e.win, mouse_hook, &e);
+		mlx_mouse_hook(e.win, mouse_hook, &e);
 //	mlx_mouse_hook(e.win, draw_mouse, &e);
-	mlx_loop(e.mlx);	//function never returns / infinite loop
+		mlx_loop(e.mlx);	//function never returns / infinite loop
 //	mlx_clear_window(e.mlx, e.win);	//clears window	
-	sleep(5);
-	usleep(5000);
+		sleep(5);
+		usleep(5000);
+*/	}
 	return (0);
 }
