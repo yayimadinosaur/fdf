@@ -6,22 +6,20 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/26 20:33:37 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/27 17:51:22 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "mlx.h"
-#include <unistd.h>
 #include "fdf.h"
 
+/*
 typedef struct	s_env
 {
 	void *mlx;
 	void *win;
 }				t_env;
 
-/*
+
 int		draw_mouse(void *mlx, void *win, int button, int x, int y)
 {
 	printf("drawing %d x: %i y: %i\n", button, x, y);
@@ -41,7 +39,7 @@ int		draw_mouse(void *mlx, void *win, int button, int x, int y)
 	}
 	return (0);
 }
-*/
+*
 
 void	draw(void *mlx, void *win)
 {
@@ -77,7 +75,7 @@ void	draw(void *mlx, void *win)
 			if (x > 300 && x <= 350 && y > 100 && y < 150)
 				mlx_pixel_put(mlx, win, x, y, 0xffa500);
 
-	/*
+	*
 	 *	hardcoded 42 in white
 	 * 		if (x >= 100 && x <= 150 && y >= 100 && y <= 200) 
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
@@ -97,7 +95,7 @@ void	draw(void *mlx, void *win)
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
 			if (x >= 300 && x <= 350 && y >= 200 && y <= 250)
 				mlx_pixel_put(mlx, win, x, y, 0xAAAAAAA);
-	*/		x = x + 1;
+	*		x = x + 1;
 		}
 		y = y + 1;
 	}
@@ -128,15 +126,20 @@ int		key_hook(int keycode, t_env *e)
 	return (0);
 }
 
+*/
 int		main(int ac, char **av)
 {
-	t_env		e;
-	t_fdfstore	grid;
+//	t_env		e;
+	t_fdfstore	*grid;
+	int			fd;
 
 	if (ac == 2)
 	{
-		grid = make_grid(&av[1]);
-		print_grid(grid);
+		fd = open(av[1], O_RDONLY);
+		if (!(grid = (t_fdfstore*)malloc(sizeof(t_fdfstore) * (1))))
+			return (0);
+		grid->str = make_grid(fd);
+		print_grid(grid->str);
 /*		e.mlx = mlx_init();		//fails if returns NULL PTR
 		e.win = mlx_new_window(e.mlx, 550, 400, "42");	//creates new window
 		draw(e.mlx, e.win);
