@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:39:23 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/27 17:42:37 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/28 18:16:09 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	print_grid(char **grid)
 
 	i = 0;
 	j = 0;
-	while (grid[i] != NULL)
+	while (grid[i])
 	{
-		while (grid[i][j] != NULL)
+		while (grid[i][j])
 		{
 			printf("%c", grid[i][j]);
 			j++;
@@ -50,23 +50,27 @@ int		count_chr(char *str, int n)
 
 char	**make_grid(int fd)
 {
-	char	**grid;
-	char	**buff;
-	char	*fdfstr;
-	char	*head;
+	char	tmp[BUFF_SIZE + 1];
+	char	*buff;
+	char	*hold;
+	char	**array;
+	int		count;
 
-	while (get_next_line(fd, &buff) == 1)
+	buff = NULL;
+	hold = NULL;
+	while ((count = read(fd, tmp, BUFF_SIZE)) > 0)
 	{
-		if (fdfstr == NULL)
+		tmp[count] = '\0';
+		if (buff == NULL)
+			buff = ft_strdup(tmp);
+		else
 		{
-			head = fdfstr;
-			fdfstr = ft_strdup(*buff);
+			hold = ft_strjoin(buff, tmp);
+			free(buff);
+			buff = hold;
 		}
-		fdfstr = ft_strcat(fdfstr, *buff);
-		free(buff);
 	}
-	grid = ft_strsplit(fdfstr, '\n');
-	ft_bzero(fdfstr, ft_strlen(fdfstr));
-	free(head);
-	return (grid);
+	array = ft_strsplit(buff, '\n');
+	free(hold);
+	return (array);
 }
