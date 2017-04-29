@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/27 17:51:22 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/28 20:26:35 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int		draw_mouse(void *mlx, void *win, int button, int x, int y)
 	}
 	return (0);
 }
-*
+*/
 
+/*
 void	draw(void *mlx, void *win)
 {
 	int		x;
@@ -100,12 +101,59 @@ void	draw(void *mlx, void *win)
 		y = y + 1;
 	}
 }
+*/
 
+void	draw(void *mlx, void *win, char **grid, int max)
+{
+	int		i;
+	int		j;
+	int		tmp;
+
+	i = 0;
+	j = 0;
+	while (grid[i])
+	{
+		while (grid[i][j])
+		{
+			if (j + 1 < max && grid[i][j] != ' ')
+			{
+				if (grid[i][j + 1] != ' ')
+				{
+					tmp = i;
+					while (tmp < i + 50)
+					{
+						mlx_pixel_put(mlx, win, tmp, j, 0xffffff);
+						tmp++;
+					}
+				}
+				mlx_pixel_put(mlx, win, i, j, 0xffffff);
+			}
+			if (i + 1 < max && grid[i][j] != ' ')
+			{
+				if (grid[i + 1][j] != ' ')
+				{
+					tmp = j;
+					while (tmp < j + 50)
+					{
+						mlx_pixel_put(mlx, win, i, tmp, 0xffffff);
+						tmp++;
+					}
+				}
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
+/*
 int		expose_hook(t_env *e)
 {
 	draw(e->mlx, e->win);
 	return (0);
 }
+*/
 
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
@@ -126,23 +174,25 @@ int		key_hook(int keycode, t_env *e)
 	return (0);
 }
 
-*/
+
 int		main(int ac, char **av)
 {
-//	t_env		e;
+	t_env		e;
 	t_fdfstore	*grid;
 	int			fd;
+	int			count;
 
 	if (ac == 2)
 	{
+		count = count_chr(av[1], '\n');
 		fd = open(av[1], O_RDONLY);
 		if (!(grid = (t_fdfstore*)malloc(sizeof(t_fdfstore) * (1))))
 			return (0);
 		grid->str = make_grid(fd);
 		print_grid(grid->str);
-/*		e.mlx = mlx_init();		//fails if returns NULL PTR
-		e.win = mlx_new_window(e.mlx, 550, 400, "42");	//creates new window
-		draw(e.mlx, e.win);
+		e.mlx = mlx_init();		//fails if returns NULL PTR
+		e.win = mlx_new_window(e.mlx, 600, 600, "42");	//creates new window
+		draw(e.mlx, e.win, grid->str, count);
 		mlx_key_hook(e.win, key_hook, &e);
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
 //		return (0);
@@ -151,8 +201,8 @@ int		main(int ac, char **av)
 //	mlx_mouse_hook(e.win, draw_mouse, &e);
 		mlx_loop(e.mlx);	//function never returns / infinite loop
 //	mlx_clear_window(e.mlx, e.win);	//clears window	
-		sleep(5);
-		usleep(5000);
-*/	}
+	//	sleep(5);
+	//	usleep(5000);
+	}
 	return (0);
 }

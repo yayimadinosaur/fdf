@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:39:23 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/28 18:16:09 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/28 19:48:57 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_grid(char **grid)
 	}
 }
 
-/*
+
 int		count_chr(char *str, int n)
 {
 	int		count;
@@ -42,11 +42,11 @@ int		count_chr(char *str, int n)
 	{
 		if (*str == n)
 			count++;
-		*str++;
+		str++;
 	}
 	return (count);
 }
-*/
+
 
 char	**make_grid(int fd)
 {
