@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/04/28 20:26:35 by wfung            ###   ########.fr       */
+/*   Updated: 2017/04/30 19:46:59 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	draw(void *mlx, void *win)
 }
 */
 
-void	draw(void *mlx, void *win, char **grid, int max)
+void	draw(void *mlx, void *win, t_fdfstore *grid)
 {
 	int		i;
 	int		j;
@@ -111,32 +111,32 @@ void	draw(void *mlx, void *win, char **grid, int max)
 
 	i = 0;
 	j = 0;
-	while (grid[i])
+	while (grid->str[i])
 	{
-		while (grid[i][j])
+		while (grid->str[i][j])
 		{
-			if (j + 1 < max && grid[i][j] != ' ')
+			if (j + 1 < grid->row_max && grid->str[i][j] != ' ')
 			{
-				if (grid[i][j + 1] != ' ')
+				if (grid->str[i][j + 1] != ' ')
 				{
 					tmp = i;
-					while (tmp < i + 50)
+					while (tmp < i + 300)
 					{
-						mlx_pixel_put(mlx, win, tmp, j, 0xffffff);
-						tmp++;
+						mlx_pixel_put(mlx, win, tmp, j + 150, 0xffffff);
+						tmp = tmp + 10;
 					}
 				}
 				mlx_pixel_put(mlx, win, i, j, 0xffffff);
 			}
-			if (i + 1 < max && grid[i][j] != ' ')
+			if (i + 1 < grid->col_max && grid->str[i][j] != ' ')
 			{
-				if (grid[i + 1][j] != ' ')
+				if (grid->str[i + 1][j] != ' ')
 				{
 					tmp = j;
-					while (tmp < j + 50)
+					while (tmp < j + 300)
 					{
-						mlx_pixel_put(mlx, win, i, tmp, 0xffffff);
-						tmp++;
+						mlx_pixel_put(mlx, win, i + 150, tmp, 0xffffff);
+						tmp = tmp + 10;
 					}
 				}
 			}
@@ -180,19 +180,21 @@ int		main(int ac, char **av)
 	t_env		e;
 	t_fdfstore	*grid;
 	int			fd;
-	int			count;
 
+	if (ac == 1)
+		write(1, "Not Enough Args\n", 16); 
 	if (ac == 2)
 	{
-		count = count_chr(av[1], '\n');
 		fd = open(av[1], O_RDONLY);
 		if (!(grid = (t_fdfstore*)malloc(sizeof(t_fdfstore) * (1))))
 			return (0);
-		grid->str = make_grid(fd);
+		if (make_grid(fd, grid) == 0)
+			return (0);
 		print_grid(grid->str);
+		printf("nl count = %i\n", grid->row_max);
 		e.mlx = mlx_init();		//fails if returns NULL PTR
 		e.win = mlx_new_window(e.mlx, 600, 600, "42");	//creates new window
-		draw(e.mlx, e.win, grid->str, count);
+		draw(e.mlx, e.win, grid);
 		mlx_key_hook(e.win, key_hook, &e);
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
 //		return (0);
