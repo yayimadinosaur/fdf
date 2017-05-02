@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:06:47 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 12:08:17 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/01 19:08:23 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,19 @@ typedef struct			s_env
 
 typedef struct			s_fdfstore
 {
+	char				*store;
 	char				**strsplit_result;
-	int					**int_array;
+	int					**array;
 	struct s_fdfstore	*next;
 	int					x;
 	int					y;
 	int					z;
-	int					col_max;
-	int					row_max;
+	int					col;
+	int					row;
 }						t_fdfstore;
 
-int		**ft_make_intarray(char *str, t_fdfstore grid);
+void	ft_make_intarray(t_fdfstore *grid);
+void	print_intarray(t_fdfstore *grid);
 int		make_grid(int fd, t_fdfstore *grid);
 int		count_chr(char *str, int n, int stop);
 void	print_grid(char **grid);

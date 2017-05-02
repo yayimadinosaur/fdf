@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 11:54:25 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/01 19:33:07 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	draw(void *mlx, void *win)
 }
 */
 
+/*
 void	draw(void *mlx, void *win, t_fdfstore *grid)
 {
 	int		i;
@@ -146,6 +147,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 		i++;
 	}
 }
+*/
 
 /*
 int		expose_hook(t_env *e)
@@ -181,20 +183,23 @@ int		main(int ac, char **av)
 	t_fdfstore	*grid;
 	int			fd;
 
-	if (ac == 1)
-		write(1, "Not Enough Args\n", 16); 
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDONLY);
 		if (!(grid = (t_fdfstore*)malloc(sizeof(t_fdfstore) * (1))))
 			return (0);
+		grid->next = NULL;
 		if (make_grid(fd, grid) == 0)
+		{
+			printf("make grid fails\n");
+//			clr_struct(grid);;
 			return (0);
-		print_grid(grid->str);
-		printf("nl count = %i\n", grid->row_max);
+		}
+		ft_make_intarray(grid);
+		print_intarray(grid);
 		e.mlx = mlx_init();		//fails if returns NULL PTR
 		e.win = mlx_new_window(e.mlx, 600, 600, "42");	//creates new window
-		draw(e.mlx, e.win, grid);
+	//	draw(e.mlx, e.win, grid);
 		mlx_key_hook(e.win, key_hook, &e);
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
 //		return (0);
@@ -206,5 +211,7 @@ int		main(int ac, char **av)
 	//	sleep(5);
 	//	usleep(5000);
 	}
+	else
+		write(1, "Not Enough Args\n", 16); 
 	return (0);
 }

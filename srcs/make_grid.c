@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:39:23 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 12:08:32 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/01 19:54:04 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		count_chr(char *str, int n, int stop)
 	count = 0;
 	while (str[i] != stop)
 	{
-		if (str[i] == (char)n)
+		if (str[i] == (char)n && str[i + 1] != (char)n)
 			count++;
 		i++;
 	}
@@ -52,32 +52,29 @@ int		count_chr(char *str, int n, int stop)
 
 int		make_grid(int fd, t_fdfstore *grid)
 {
-	char	tmp[BUFF_SIZE + 1];
-	char	*buff;
-	char	*hold;
-	int		count;
+	char		*buff;
+	int			row;
+	t_fdfstore	*head;
 
-	buff = NULL;
-	hold = NULL;
-	while ((count = read(fd, tmp, BUFF_SIZE)) > 0)
+	head = grid;
+	grid->col = 0;
+	row = 0;
+	while (get_next_line(fd, &buff) == 1)
 	{
-		tmp[count] = '\0';
-		if (buff == NULL)
-			buff = ft_strdup(tmp);
-		else
+		if (grid->col > 0)
 		{
-			hold = ft_strjoin(buff, tmp);
-			free(buff);
-			buff = hold;
+			if (count_chr(buff, ' ', '\0') != grid->col)
+				return (0);
 		}
+		else if (grid->col == 0)
+			grid->col = count_chr(buff, ' ', '\0');
+		head->store = ft_strdup(buff);
+		if (!(head->next = (t_fdfstore*)malloc(sizeof(t_fdfstore) * (1))))
+			return (0);
+		head = head->next;
+		free(buff);
+		row++;
 	}
-/*	grid->row_max = count_chr(buff, '\n', '\0');
-	printf("row_max = %i\n", grid->row_max);
-	grid->col_max = count_chr(buff, ' ', '\n');
-	printf("col_max = %i\n", grid->col_max);
-*/
-	if (!(grid->strsplit_result = ft_strsplit(buff, '\n')))
-		return (0);
-	free(hold);
+	grid->row = row;
 	return (1);
 }
