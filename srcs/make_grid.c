@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:39:23 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 19:55:49 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/02 12:46:02 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ int		count_chr(char *str, int n, int stop)
 	{
 		if (str[i] == (char)n && str[i + 1] != (char)n)
 			count++;
-		i++;
+		if (str[i] == (char)n)
+			printf("x");
+		else
+			printf("o");
 	}
+	printf("\ncount chr col = %i\n", count);
 	return (count);
 }
 
@@ -77,5 +81,6 @@ int		make_grid(int fd, t_fdfstore *grid)
 		row++;
 	}
 	grid->row = row;
+	printf("col %i row %i\n", grid->col, grid->row);
 	return (1);
 }
