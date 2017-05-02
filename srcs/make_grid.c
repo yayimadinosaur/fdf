@@ -6,12 +6,13 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:39:23 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 19:54:04 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/01 19:55:49 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
 void	print_grid(char **grid)
 {
 	int		i;
@@ -31,7 +32,7 @@ void	print_grid(char **grid)
 		i++;
 	}
 }
-
+*/
 
 int		count_chr(char *str, int n, int stop)
 {
