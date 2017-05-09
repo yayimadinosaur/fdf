@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 12:02:56 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/02 12:33:30 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/08 16:50:24 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,30 @@ void		ft_make_intarray(t_fdfstore *grid)
 		return ;
 	buff->array[grid->row] = NULL;
 	printf("heyyyy\n");
-	while (buff->array[i])	//doesnt event go here
+	while (grid->next)	//doesnt event go here
 	{
 		j = 0;
+		printf("j while reset j = %i\n", j);
+		if (!(buff->array[i] = (int*)malloc(sizeof(int) * (buff->col + 1))))
+		{
+			while (i > -2 && i--)
+			{
+				printf("free buff->array = %i\n", i + 1);
+				free(buff->array[i + 1]);
+			}
+		}
+		printf("uh oh created %i\n", i);
 		while (j < buff->col)
 		{
-			if (!(buff->array[i] = (int*)malloc(sizeof(int) * (buff->col + 1))))
-			{
-				while (i > -2 && i--)
-					free(buff->array[i + 1]);
-			}
-			buff->array[buff->col] = NULL;
 			buff->array[i][j] = ft_atoi(buff->store);
 			buff = buff->next;
+			printf("buff[%i][%i]] created [%i]\n", i, j, ft_atoi(buff->store));
 			j++;
 		}
+		printf("i while = %i\n", i);
 		i++;
+		grid = grid->next;
 	}
+	buff->array[buff->col] = NULL;
 	printf("end while make_intarray\n");
 }

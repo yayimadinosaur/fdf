@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:06:47 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 19:08:23 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/08 16:48:16 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct			s_env
+typedef struct				s_env
 {
-	void				*mlx;
-	void				*win;
-}						t_env;
+	void					*mlx;
+	void					*win;
+}							t_env;
 
-typedef struct			s_fdfstore
+typedef struct				s_fdfstore
 {
-	char				*store;
-	char				**strsplit_result;
-	int					**array;
-	struct s_fdfstore	*next;
-	int					x;
-	int					y;
-	int					z;
-	int					col;
-	int					row;
-}						t_fdfstore;
+	char					*store;
+	char					**strsplit_result;
+	int						**array;
+	struct s_fdfstore		*next;
+	int						x;
+	int						y;
+	int						z;
+	int						col;
+	int						row;
+}							t_fdfstore;
 
 void	ft_make_intarray(t_fdfstore *grid);
 void	print_intarray(t_fdfstore *grid);
