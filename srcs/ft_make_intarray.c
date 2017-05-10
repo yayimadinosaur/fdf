@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 12:02:56 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/09 18:58:49 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/09 19:39:45 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ void		print_intarray(t_fdfstore *grid)
 
 	i = 0;
 	printf("start print_intarray\n");
-	while (grid->array[i] != NULL)
+	while (grid->array[i])
 	{
 		j = 0;
-		while (grid->array[i][j])
-		{	
-			printf("[%i]", grid->array[i][j]);
+		while (j < grid->col)		//doesn't print result of atoi 
+		{					//WORKS WHEN j<grid->col but not while grid->array[i][j]
+			if (grid->array[i][j] < 10 || grid->array[i][j + 1] < 10)
+				printf("[%i]  ", grid->array[i][j]);
+			else
+				printf("[%i]", grid->array[i][j]);
 			j++;
 		}
 		printf("\n");
@@ -50,6 +53,7 @@ void		ft_make_intarray(t_fdfstore *grid)
 	printf("heyyyy\n");
 	if (!(grid->array[i] = (int*)malloc(sizeof(int) * (grid->col + 1))))
 		return ;
+	grid->array[grid->col] = NULL;
 	while (grid->array[i] && i < grid->row)	//doesnt event go here
 	{
 		j = 0;
@@ -59,21 +63,23 @@ void		ft_make_intarray(t_fdfstore *grid)
 		{
 			grid->array[i][j] = ft_atoi(result[j]);
 		//	buff = buff->next;
-			printf("result [%i] = [%i]\n", j, ft_atoi(result[j]));
-			printf("buff[%i][%i] created [%i]\n", i, j, ft_atoi(result[j]));
+		//	printf("result [%i] = [%i]\n", j, ft_atoi(result[j]));
+			printf("atoi result [%i]\ngrid->array[%i][%i] = [%i]\n", ft_atoi(result[j]), i, j, grid->array[i][j]);
 			j++;
 		}
 		buff = buff->next;
-		printf("i while = %i\n", i);
+		printf("/////////////////////i while = %i\n", i);
 		i++;
 		if (!(grid->array[i] = (int*)malloc(sizeof(int) * (grid->col + 1))))
 		{
-			while (i > -2 && i--)
+	/*		while (i > -2 && i--)
 			{
 				printf("free buff->array = %i\n", i + 1);
 				free(grid->array[i + 1]);
 			}
+	*/		return ;
 		}
+		grid->array[grid->col] = NULL;
 	}
 	printf("end while make_intarray\n");
 }

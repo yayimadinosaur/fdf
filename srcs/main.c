@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/01 19:33:07 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/09 19:04:32 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ int		key_hook(int keycode, t_env *e)
 
 int		main(int ac, char **av)
 {
-	t_env		e;
+//	t_env		e;
 	t_fdfstore	*grid;
 	int			fd;
 
@@ -197,7 +197,7 @@ int		main(int ac, char **av)
 		}
 		ft_make_intarray(grid);
 		print_intarray(grid);
-		e.mlx = mlx_init();		//fails if returns NULL PTR
+/*		e.mlx = mlx_init();		//fails if returns NULL PTR
 		e.win = mlx_new_window(e.mlx, 600, 600, "42");	//creates new window
 	//	draw(e.mlx, e.win, grid);
 		mlx_key_hook(e.win, key_hook, &e);
@@ -210,7 +210,7 @@ int		main(int ac, char **av)
 //	mlx_clear_window(e.mlx, e.win);	//clears window	
 	//	sleep(5);
 	//	usleep(5000);
-	}
+*/	}
 	else
 		write(1, "Not Enough Args\n", 16); 
 	return (0);
