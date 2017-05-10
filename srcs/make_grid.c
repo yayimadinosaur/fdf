@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:39:23 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/08 16:44:32 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/09 18:57:48 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int		make_grid(int fd, t_fdfstore *grid)
 	{
 		if (grid->col > 0)
 		{
-			if (count_chr(buff, ' ', '\0') != grid->col)
+			if (count_chr(buff, '	', '\0') != grid->col)
 				return (0);
 		}
 		else if (grid->col == 0)
-			grid->col = count_chr(buff, ' ', '\0');
+			grid->col = count_chr(buff, '	', '\0');
 		head->store = ft_strdup(buff);
 		if (!(head->next = (t_fdfstore*)malloc(sizeof(t_fdfstore) * (1))))
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 12:02:56 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/08 16:50:24 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/09 18:58:49 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,41 @@ void		ft_make_intarray(t_fdfstore *grid)
 	int			i;
 	int			j;
 	t_fdfstore	*buff;
+	char		**result;
 
 	i = 0;
 	buff = grid;
-	if (!(buff->array = (int**)malloc(sizeof(int*) * (grid->row + 1))))
+	printf("grid->row = %i col = %i\n", grid->row, grid->col);
+	if (!(grid->array = (int**)malloc(sizeof(int*) * (grid->row + 1))))
 		return ;
-	buff->array[grid->row] = NULL;
+	grid->array[grid->row] = NULL;
 	printf("heyyyy\n");
-	while (grid->next)	//doesnt event go here
+	if (!(grid->array[i] = (int*)malloc(sizeof(int) * (grid->col + 1))))
+		return ;
+	while (grid->array[i] && i < grid->row)	//doesnt event go here
 	{
 		j = 0;
 		printf("j while reset j = %i\n", j);
-		if (!(buff->array[i] = (int*)malloc(sizeof(int) * (buff->col + 1))))
+		result = ft_strsplit(buff->store, '	');
+		while (j < grid->col)
+		{
+			grid->array[i][j] = ft_atoi(result[j]);
+		//	buff = buff->next;
+			printf("result [%i] = [%i]\n", j, ft_atoi(result[j]));
+			printf("buff[%i][%i] created [%i]\n", i, j, ft_atoi(result[j]));
+			j++;
+		}
+		buff = buff->next;
+		printf("i while = %i\n", i);
+		i++;
+		if (!(grid->array[i] = (int*)malloc(sizeof(int) * (grid->col + 1))))
 		{
 			while (i > -2 && i--)
 			{
 				printf("free buff->array = %i\n", i + 1);
-				free(buff->array[i + 1]);
+				free(grid->array[i + 1]);
 			}
 		}
-		printf("uh oh created %i\n", i);
-		while (j < buff->col)
-		{
-			buff->array[i][j] = ft_atoi(buff->store);
-			buff = buff->next;
-			printf("buff[%i][%i]] created [%i]\n", i, j, ft_atoi(buff->store));
-			j++;
-		}
-		printf("i while = %i\n", i);
-		i++;
-		grid = grid->next;
 	}
-	buff->array[buff->col] = NULL;
 	printf("end while make_intarray\n");
 }
