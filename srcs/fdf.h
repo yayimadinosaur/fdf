@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:06:47 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/08 16:48:16 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/11 19:45:07 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct				s_env
 {
 	void					*mlx;
 	void					*win;
+	int						screen_x;		//save max x axis of window
+	int						screen_y;		//save max y axis of window
 }							t_env;
 
 typedef struct				s_fdfstore
