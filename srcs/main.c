@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/16 19:44:02 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/17 16:48:55 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,11 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 	int		p;
 
 	i = 0;
+	printf("grid value test col %i row %i win_x %i win_y %i center_x %i center_y %i start_x %i start_y %i\n", grid->col, grid->row, grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 	while (grid->array[i])
 	{
 		j = 0;
-		while (grid->array[i][j] < grid->col)
+		while (j < grid->col)
 		{
 			if (i + 1 < grid->row)
 			{
@@ -212,8 +213,8 @@ void	set_window(int n, t_fdfstore *grid)
 	grid->win_y = n;
 	grid->center_x = n / 2;
 	grid->center_y = n / 2;
-	grid->start_x = (n - (n/10)) / grid->col;		//starts off 10% inside x y
-	grid->start_y = (n - (n/10)) / grid->row;
+	grid->start_x = (n - ( n / 10)) / grid->col;		//starts off 10% inside x y
+	grid->start_y = (n - ( n / 10)) / grid->row;
 }
 
 int		main(int ac, char **av)
