@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/01 12:02:56 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/09 19:39:45 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/16 16:18:42 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		print_intarray(t_fdfstore *grid)
 		while (j < grid->col)		//doesn't print result of atoi 
 		{					//WORKS WHEN j<grid->col but not while grid->array[i][j]
 			if (grid->array[i][j] < 10 || grid->array[i][j + 1] < 10)
-				printf("[%i]  ", grid->array[i][j]);
+				printf("[%i]", grid->array[i][j]);
 			else
 				printf("[%i]", grid->array[i][j]);
 			j++;

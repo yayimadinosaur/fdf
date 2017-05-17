@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 19:06:47 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/11 19:45:07 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/16 19:23:01 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,25 @@ typedef struct				s_env
 {
 	void					*mlx;
 	void					*win;
-	int						screen_x;		//save max x axis of window
-	int						screen_y;		//save max y axis of window
 }							t_env;
 
 typedef struct				s_fdfstore
 {
-	char					*store;
-	char					**strsplit_result;
+	char					*store;			//??
+	char					**strsplit_result;	//isnt used right now
 	int						**array;
 	struct s_fdfstore		*next;
 	int						x;
 	int						y;
-	int						z;
+	int						z;		//find out how to use
 	int						col;
 	int						row;
+	int						win_x;		//save max x axis of window
+	int						win_y;		//save max y axis of window
+	int						center_x;
+	int						center_y;
+	int						start_x;
+	int						start_y;
 }							t_fdfstore;
 
 void	ft_make_intarray(t_fdfstore *grid);
