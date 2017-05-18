@@ -6,7 +6,7 @@
 #    By: wfung <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/11 08:16:24 by wfung             #+#    #+#              #
-#    Updated: 2017/05/01 19:09:48 by wfung            ###   ########.fr        #
+#    Updated: 2017/05/18 10:09:19 by wfung            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FLAG	=	-Wall -Wextra -Werror
 SRCS	= 	main.c\
 			make_grid.c\
 			ft_make_intarray.c\
+			ft_make_floatarray.c\
 
 OBJ =		${SRCS:.c=.o}
 

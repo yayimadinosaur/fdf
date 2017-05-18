@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/17 16:48:55 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/18 12:04:25 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 
 	i = 0;
 	printf("grid value test col %i row %i win_x %i win_y %i center_x %i center_y %i start_x %i start_y %i\n", grid->col, grid->row, grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
-	while (grid->array[i])
+	while (grid->f_array[i] && i < grid->col)	//remember to print proper array
 	{
 		j = 0;
 		while (j < grid->col)
@@ -174,7 +174,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 			{
 				p = grid->start_y + (grid->win_y / grid->row) + 1;
 				while (p > 0 && p--)
-					mlx_pixel_put(mlx, win, grid->center_y, grid->center_x + n, 0xffffff);
+					mlx_pixel_put(mlx, win, grid->center_y, grid->center_x + p, 0xffffff);
 			//	printf("value chk %i, %i, %i, %i, %i, %i\n", grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 			}
 			printf("i = %i j = %i\n", i, j);
@@ -235,8 +235,8 @@ int		main(int ac, char **av)
 //			clr_struct(grid);
 			return (0);
 		}
-		ft_make_intarray(grid);
-		print_intarray(grid);	//for testing purposes
+		ft_make_floatarray(grid);
+		print_floatarray(grid);	//for testing purposes
 		set_window(600, grid);	//set window values
 		e.mlx = mlx_init();		//fails if returns NULL PTR
 		e.win = mlx_new_window(e.mlx, grid->win_x, grid->win_y, "42");	//creates new window
