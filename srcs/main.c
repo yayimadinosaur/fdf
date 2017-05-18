@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/18 12:04:25 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/18 15:28:27 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,28 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 			{
 				n = grid->start_x + (grid->win_x / grid->col) + 1;
 				while (n > 0 && n--)
-					mlx_pixel_put(mlx, win, grid->center_y + n, grid->center_x, 0xffffff);
+					mlx_pixel_put(mlx, win, grid->start_y + (n * i), grid->start_x, 0xffffff);	//print outside x white
 			}
 			if (j + 1 < grid->col)
 			{
 				p = grid->start_y + (grid->win_y / grid->row) + 1;
 				while (p > 0 && p--)
-					mlx_pixel_put(mlx, win, grid->center_y, grid->center_x + p, 0xffffff);
+					mlx_pixel_put(mlx, win, grid->start_y, grid->start_x + (p * j), 0xff0000);	//print outside y blue
 			//	printf("value chk %i, %i, %i, %i, %i, %i\n", grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 			}
+		/*	if (i + 1 < grid->row && j + 1 < grid->col)
+			{
+				n = grid->start_x + (grid->win_x / grid->col) + 1;
+				while (n > 0 && n--)
+					mlx_pixel_put(mlx, win, grid->start_y + (n * i), grid->start_x + (n * i), 0xff00);	//green
+				p = grid->start_y + (grid->win_y / grid->row) + 1;
+				while (p > 0 && p--)
+					mlx_pixel_put(mlx, win, grid->start_y + (p * j), grid->start_x + (p * j), 0xffff00);	//yellow
+			}
+		*///	if (grid->f_array[i][j] == grid->f_array[i + 1][j] && grid->f_array[i][j + 1])
+		//	{
+//
+//			}
 			printf("i = %i j = %i\n", i, j);
 			j++;
 		}
