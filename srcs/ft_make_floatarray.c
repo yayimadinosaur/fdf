@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 16:54:37 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/18 11:57:35 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/19 14:33:49 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ void		ft_make_floatarray(t_fdfstore *grid)
 		}
 		grid->f_array[grid->col] = NULL;
 	}
-	printf("end while make_floatarray\n");
+	printf("end while make_floatarray\n-------------------------\n");
 }

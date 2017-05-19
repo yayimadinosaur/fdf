@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/18 19:05:36 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/19 14:36:28 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 		//	{
 //
 //			}
-			printf("i = %i j = %i\n", i, j);
+			printf("i = %i j = %i [%f]\n", i, j, grid->f_array[i][j]);
 			j++;
 		}
 		i++;
