@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/18 15:28:27 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/18 19:05:36 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,43 +150,51 @@ int		expose_hook(t_env *e)
 }
 */
 
+/*draw w/ 5 variables*/
 void	draw(void *mlx, void *win, t_fdfstore *grid)
 {
 	int		i;
 	int		j;
 	int		n;
 	int		p;
+	int		x;
 
 	i = 0;
-	printf("grid value test col %i row %i win_x %i win_y %i center_x %i center_y %i start_x %i start_y %i\n", grid->col, grid->row, grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
+	printf("grid value test col %i row %i win_x %f win_y %f center_x %f center_y %f start_x %f start_y %f\n", grid->col, grid->row, grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 	while (grid->f_array[i] && i < grid->col)	//remember to print proper array
 	{
 		j = 0;
-		while (j < grid->col)
+		while (j < grid->col)	//grid->f_array[i][j] fails printing
 		{
+			x = 50;
 			if (i + 1 < grid->row)
 			{
 				n = grid->start_x + (grid->win_x / grid->col) + 1;
+				while (x > 1 && x--)
+					mlx_pixel_put(mlx, win, grid->start_y + n, grid->start_x + n + (x * n) + 1, 0xff00);	//green
 				while (n > 0 && n--)
 					mlx_pixel_put(mlx, win, grid->start_y + (n * i), grid->start_x, 0xffffff);	//print outside x white
 			}
+			x = 50;
 			if (j + 1 < grid->col)
 			{
 				p = grid->start_y + (grid->win_y / grid->row) + 1;
+				while (x > 1 && x--)
+					mlx_pixel_put(mlx, win, grid->start_y + p + (x * p) + 1, grid->start_x + p + x, 0xffff00);	//yellow
 				while (p > 0 && p--)
 					mlx_pixel_put(mlx, win, grid->start_y, grid->start_x + (p * j), 0xff0000);	//print outside y blue
 			//	printf("value chk %i, %i, %i, %i, %i, %i\n", grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 			}
-		/*	if (i + 1 < grid->row && j + 1 < grid->col)
-			{
-				n = grid->start_x + (grid->win_x / grid->col) + 1;
-				while (n > 0 && n--)
-					mlx_pixel_put(mlx, win, grid->start_y + (n * i), grid->start_x + (n * i), 0xff00);	//green
-				p = grid->start_y + (grid->win_y / grid->row) + 1;
-				while (p > 0 && p--)
-					mlx_pixel_put(mlx, win, grid->start_y + (p * j), grid->start_x + (p * j), 0xffff00);	//yellow
-			}
-		*///	if (grid->f_array[i][j] == grid->f_array[i + 1][j] && grid->f_array[i][j + 1])
+	//		if (i + 1 < grid->row && j + 1 < grid->col)
+	//		{
+	//			n = grid->start_x + (grid->win_x / grid->col) + 1;
+	//			while (n > 0 && n--)
+	//				mlx_pixel_put(mlx, win, grid->start_y + (n * i), grid->start_x + (n * i), 0xff00);	//green
+	//			p = grid->start_y + (grid->win_y / grid->row) + 1;
+	//			while (p > 0 && p--)
+	//				mlx_pixel_put(mlx, win, grid->start_y + (p * j), grid->start_x + (p * j), 0xffff00);	//yellow
+	//		}
+		//	if (grid->f_array[i][j] == grid->f_array[i + 1][j] && grid->f_array[i][j + 1])
 		//	{
 //
 //			}
@@ -196,6 +204,30 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 		i++;
 	}
 }
+
+
+/*draw 3 
+void	draw(void *mlx, void *win, t_fdfstore *grid)
+{
+	float	x;
+	float	y;
+
+	x = grid->start_x;
+	while (x < grid->win_x - grid->start_x)
+	{
+		y = grid->start_y;
+		while (y < grid->win_y - grid->start_y)
+		{
+			if ((y >= grid->start_y && y <= grid->start_y + 50) && (x >= grid->start_x && x <= grid->start_x + 50))
+				mlx_pixel_put(mlx, win, y, x, 0xff00);	//green
+	//		if (y >= grid->start_y && x < grid->start_x)
+	//			mlx_pixel_put(mlx, win, y, x, 0xffff00);	//yellow
+			y++;
+		}
+		x++;
+	}
+}
+*/
 
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
