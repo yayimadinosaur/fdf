@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 16:54:37 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/19 14:33:49 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/23 14:24:11 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void		print_floatarray(t_fdfstore *grid)
 		printf("\n");
 		i++;
 	}
-	if (grid->f_array[i] == NULL)
-		printf("it null bruh\n");
+//	if (grid->f_array[i] == NULL)	//not needed?
+//		printf("it null bruh\n");
 }
 
 void		ft_make_floatarray(t_fdfstore *grid)
@@ -51,9 +51,9 @@ void		ft_make_floatarray(t_fdfstore *grid)
 		return ;
 	grid->f_array[grid->row] = NULL;
 	printf("heyyyy\n");
-	if (!(grid->f_array[i] = (float*)malloc(sizeof(float) * (grid->col + 1))))
+	if (!(grid->f_array[i] = (float*)malloc(sizeof(float) * (grid->col))))
 		return ;
-	grid->f_array[grid->col] = NULL;
+//	grid->f_array[grid->col] = NULL;	not needed because its a float not a ptr
 	while (grid->f_array[i] && i < grid->row)	//doesnt event go here
 	{
 		j = 0;

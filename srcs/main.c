@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/19 14:36:28 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/23 19:07:27 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 
 	i = 0;
 	printf("grid value test col %i row %i win_x %f win_y %f center_x %f center_y %f start_x %f start_y %f\n", grid->col, grid->row, grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
-	while (grid->f_array[i] && i < grid->col)	//remember to print proper array
+	while (i < grid->col)	//remember to print proper array	//old - while(grid->f_array[i]
 	{
 		j = 0;
 		while (j < grid->col)	//grid->f_array[i][j] fails printing
@@ -169,9 +169,10 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 			x = 50;
 			if (i + 1 < grid->row)
 			{
-				n = grid->start_x + (grid->win_x / grid->col) + 1;
+				n = grid->start_x + ((grid->win_x / grid->col) * i);
+				printf("n = [%i]\n", n);
 				while (x > 1 && x--)
-					mlx_pixel_put(mlx, win, grid->start_y + n, grid->start_x + n + (x * n) + 1, 0xff00);	//green
+					mlx_pixel_put(mlx, win, grid->start_y + n, grid->start_x + (x * n) + 1, 0xff00);	//green
 				while (n > 0 && n--)
 					mlx_pixel_put(mlx, win, grid->start_y + (n * i), grid->start_x, 0xffffff);	//print outside x white
 			}
@@ -179,10 +180,11 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 			if (j + 1 < grid->col)
 			{
 				p = grid->start_y + (grid->win_y / grid->row) + 1;
+				printf("p = [%i]\n", p);
 				while (x > 1 && x--)
-					mlx_pixel_put(mlx, win, grid->start_y + p + (x * p) + 1, grid->start_x + p + x, 0xffff00);	//yellow
+					mlx_pixel_put(mlx, win, grid->start_y + (x * p) + 1, grid->start_x + p + x, 0xffff00);	//yellow
 				while (p > 0 && p--)
-					mlx_pixel_put(mlx, win, grid->start_y, grid->start_x + (p * j), 0xff0000);	//print outside y blue
+					mlx_pixel_put(mlx, win, grid->start_y, grid->start_x + (p * j), 0xff0000);	//print outside y red
 			//	printf("value chk %i, %i, %i, %i, %i, %i\n", grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 			}
 	//		if (i + 1 < grid->row && j + 1 < grid->col)
@@ -198,11 +200,12 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 		//	{
 //
 //			}
-			printf("i = %i j = %i [%f]\n", i, j, grid->f_array[i][j]);
+	//		printf("i = %i j = %i [%f]\n", i, j, grid->f_array[i][j]);
 			j++;
 		}
 		i++;
 	}
+	printf("fin draw ft\n");
 }
 
 
@@ -235,6 +238,7 @@ int		mouse_hook(int button, int x, int y, t_env *e)
 
 	w = *e;
 	printf("mouse: %d (%d:%d)\n", button, x, y);
+	mlx_pixel_put(e->mlx, e->win, x, y, 0xff0000);
 	return (0);
 }
 
@@ -290,7 +294,7 @@ int		main(int ac, char **av)
 //	if (mlx_key_hook(e.win, key_hook, &e) == 53)
 //		return (0);
 //	mlx_expose_hook(e.win, expose_hook, &e);
-		mlx_mouse_hook(e.win, mouse_hook, &e);
+	//	mlx_mouse_hook(e.win, mouse_hook, &e);		//MOUSE HOOK PRINTS PIXEL AT MOUSE LOCATION!
 //	mlx_mouse_hook(e.win, draw_mouse, &e);
 		mlx_loop(e.mlx);	//function never returns / infinite loop
 //	mlx_clear_window(e.mlx, e.win);	//clears window	
