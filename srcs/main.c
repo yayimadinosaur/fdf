@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/23 19:07:27 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/24 18:27:08 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,14 +155,35 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 {
 	int		i;
 	int		j;
-	int		n;
-	int		p;
-	int		x;
+	int		n;	//stopper? for y?
+	int		p;	//stopper for x?
+	int		m;	//slope
+//	int		x;	//old
 
 	i = 0;
 	printf("grid value test col %i row %i win_x %f win_y %f center_x %f center_y %f start_x %f start_y %f\n", grid->col, grid->row, grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
 	while (i < grid->col)	//remember to print proper array	//old - while(grid->f_array[i]
 	{
+		j = 0;
+		while (j < grid->row)
+		{
+			m = ((j - (j + 1)) / (i - (i + 1))) * j + 1;
+		//	n = grid->start_x + (grid->win_x / (grid->col * j + 1));
+		//	p =  grid->start_y + (grid->win_y / (grid->row * i + 1));
+			n = grid->start_x + grid->start_x * i;
+			p = grid->start_y + grid->start_y * j;
+			printf("j = [%i] i = [%i] m = [%i] n = [%i] p = [%i]\n", j, i, m, n, p);
+			while (n > grid->start_x + grid->start_x * (i - 1)  && p > grid->start_y + grid->start_y * (j - 1))
+			{
+				mlx_pixel_put(mlx, win, n * m + n , p, 0xff00);	//green
+				mlx_pixel_put(mlx, win, n, p * m + p, 0xffff00);	//yellow
+				mlx_pixel_put(mlx, win, n, p, 0xff0000);	//red
+				mlx_pixel_put(mlx, win, n * m + n, p * m + p, 0xffffff);	//white
+				n--;
+				p--;
+			printf("n now = [%i] p now = [%i]\n", n, p);
+			}
+/*
 		j = 0;
 		while (j < grid->col)	//grid->f_array[i][j] fails printing
 		{
@@ -185,8 +206,10 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 					mlx_pixel_put(mlx, win, grid->start_y + (x * p) + 1, grid->start_x + p + x, 0xffff00);	//yellow
 				while (p > 0 && p--)
 					mlx_pixel_put(mlx, win, grid->start_y, grid->start_x + (p * j), 0xff0000);	//print outside y red
+					}
+*/
+
 			//	printf("value chk %i, %i, %i, %i, %i, %i\n", grid->win_x, grid->win_y, grid->center_x, grid->center_y, grid->start_x, grid->start_y);
-			}
 	//		if (i + 1 < grid->row && j + 1 < grid->col)
 	//		{
 	//			n = grid->start_x + (grid->win_x / grid->col) + 1;
