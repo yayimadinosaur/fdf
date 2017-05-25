@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/24 18:27:08 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/25 15:12:58 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,15 +173,19 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 			n = grid->start_x + grid->start_x * i;
 			p = grid->start_y + grid->start_y * j;
 			printf("j = [%i] i = [%i] m = [%i] n = [%i] p = [%i]\n", j, i, m, n, p);
-			while (n > grid->start_x + grid->start_x * (i - 1)  && p > grid->start_y + grid->start_y * (j - 1))
+			while (n > grid->start_x + grid->start_x * (i - 1))
 			{
-				mlx_pixel_put(mlx, win, n * m + n , p, 0xff00);	//green
-				mlx_pixel_put(mlx, win, n, p * m + p, 0xffff00);	//yellow
-				mlx_pixel_put(mlx, win, n, p, 0xff0000);	//red
-				mlx_pixel_put(mlx, win, n * m + n, p * m + p, 0xffffff);	//white
+			//	mlx_pixel_put(mlx, win, n * m + n , p, 0xff00);	//green
+			//	mlx_pixel_put(mlx, win, n, p * m + p, 0xffff00);	//yellow
+				mlx_pixel_put(mlx, win, n, p, 0xff);	//blue	//was - red
+			//	mlx_pixel_put(mlx, win, n * m + n, p * m + p, 0xffffff);	//white
 				n--;
-				p--;
 			printf("n now = [%i] p now = [%i]\n", n, p);
+			}
+			while (p > grid->start_y + grid->start_y * (j - 1))
+			{
+				mlx_pixel_put(mlx, win, n, p, 0xff0000);	//red
+				p--;
 			}
 /*
 		j = 0;
