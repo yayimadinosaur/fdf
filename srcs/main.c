@@ -6,7 +6,7 @@
 /*   By: wfung <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 19:34:08 by wfung             #+#    #+#             */
-/*   Updated: 2017/05/25 15:12:58 by wfung            ###   ########.fr       */
+/*   Updated: 2017/05/27 17:43:45 by wfung            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 		j = 0;
 		while (j < grid->row)
 		{
-			m = ((j - (j + 1)) / (i - (i + 1))) * j + 1;
+			m = ((j - (j + 1)) / (i - (i + 1))) * j + 1;	//NOT TEST?
 		//	n = grid->start_x + (grid->win_x / (grid->col * j + 1));
 		//	p =  grid->start_y + (grid->win_y / (grid->row * i + 1));
 			n = grid->start_x + grid->start_x * i;
@@ -180,7 +180,7 @@ void	draw(void *mlx, void *win, t_fdfstore *grid)
 				mlx_pixel_put(mlx, win, n, p, 0xff);	//blue	//was - red
 			//	mlx_pixel_put(mlx, win, n * m + n, p * m + p, 0xffffff);	//white
 				n--;
-			printf("n now = [%i] p now = [%i]\n", n, p);
+		//	printf("n now = [%i] p now = [%i]\n", n, p);
 			}
 			while (p > grid->start_y + grid->start_y * (j - 1))
 			{
